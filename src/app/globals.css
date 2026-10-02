@@ -110,6 +110,13 @@
   [id] {
     scroll-margin-top: 5rem;
   }
+
+  /* Keep the footer clear of the fixed mobile order bar on product pages. */
+  @media (max-width: 767px) {
+    body:has([data-order-bar]) footer {
+      padding-bottom: 6.5rem;
+    }
+  }
 }
 
 @layer components {

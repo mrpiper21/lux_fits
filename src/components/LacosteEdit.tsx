@@ -18,9 +18,9 @@ export function LacosteEdit({ products, showLink = true }: { products: Product[]
   const picks = products.filter((p) => p.category === "lacoste").slice(0, placement.length);
 
   return (
-    <section aria-labelledby="lacoste-title" className="bg-white py-24 md:py-36">
+    <section aria-labelledby="lacoste-title" className="bg-white py-16 md:py-36">
       <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-        <div className="grid gap-10 md:grid-cols-12 md:gap-6">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-6">
           <Reveal className="relative aspect-[4/5] md:col-span-6 md:aspect-[5/6]">
             <Media src={photos.lacoste.src} alt={photos.lacoste.alt} tone={photos.lacoste.tone}
             position={photos.lacoste.position} sizes="(min-width: 768px) 50vw, 100vw" />

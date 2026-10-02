@@ -5,8 +5,8 @@ import { Reveal } from "@/components/ui/Reveal";
 
 export function About() {
   return (
-    <section id="about" aria-labelledby="about-title" className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 md:py-36">
-      <div className="grid gap-12 md:grid-cols-12 md:gap-6">
+    <section id="about" aria-labelledby="about-title" className="mx-auto max-w-[1600px] px-5 py-16 md:px-10 md:py-36">
+      <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-6">
         <Reveal className="relative aspect-[4/5] md:col-span-5">
           <Media src={photos.about.src} alt={photos.about.alt} tone={photos.about.tone}
             position={photos.about.position} sizes="(min-width: 768px) 42vw, 100vw" />

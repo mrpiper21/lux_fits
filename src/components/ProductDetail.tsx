@@ -29,7 +29,7 @@ export function ProductDetail({ product }: { product: Product }) {
 
   return (
     <div data-gender={product.gender} className="mx-auto max-w-[1600px] md:px-10">
-      <div className="grid md:grid-cols-12 md:gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-12 md:gap-6">
         {/* Photographs — swipe, thumbnails, and a full-screen preview */}
         <div className="md:col-span-7">
           <ProductGallery images={images} alt={productAlt(product)} tone={productTone(product)} />
@@ -100,7 +100,7 @@ export function ProductDetail({ product }: { product: Product }) {
       </div>
 
       {/* Mobile: ordering always within thumb reach */}
-      <div className="fixed inset-x-0 bottom-0 z-30 flex items-center justify-between gap-4 border-t border-ink/10 bg-canvas px-5 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden">
+      <div data-order-bar className="fixed inset-x-0 bottom-0 z-30 flex items-center justify-between gap-4 border-t border-ink/10 bg-canvas px-5 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden">
         <p className="min-w-0 text-sm">
           <span className="block truncate">{product.name}</span>
           <span className="text-ink/60">

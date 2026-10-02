@@ -16,9 +16,9 @@ const layout: { item: string; image: string; sizes: string; inner?: string; text
 
 export function Collections() {
   return (
-    <section id="collections" aria-labelledby="collections-title" className="py-24 md:py-36">
+    <section id="collections" aria-labelledby="collections-title" className="py-16 md:py-36">
       <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-        <h2 id="collections-title" className="display mb-12 max-w-4xl text-[clamp(2.5rem,7vw,5.5rem)] md:mb-20">
+        <h2 id="collections-title" className="display mb-8 max-w-4xl text-[clamp(2.5rem,7vw,5.5rem)] md:mb-20">
           Three collections, <span className="accent-word">one</span> point of view
         </h2>
       </div>

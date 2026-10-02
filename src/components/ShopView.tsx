@@ -43,7 +43,7 @@ export function ShopView({ products }: { products: Product[] }) {
 
   return (
     <div data-gender={gender === "all" ? undefined : gender} className="accent-transition">
-      <header className="mb-12 grid gap-6 md:mb-16 md:grid-cols-12 md:items-end">
+      <header className="mb-12 grid grid-cols-1 gap-6 md:mb-16 md:grid-cols-12 md:items-end">
         <h1 className="display text-[clamp(3.25rem,10vw,9rem)] md:col-span-8">
           {copy.title} <span className="accent-word text-accent-text transition-colors">{copy.accent}</span>
         </h1>

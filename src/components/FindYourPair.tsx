@@ -40,9 +40,9 @@ export function FindYourPair({ products }: { products: Product[] }) {
   }
 
   return (
-    <section id="find-your-pair" aria-labelledby="fyp-title" className="py-24 md:py-36">
+    <section id="find-your-pair" aria-labelledby="fyp-title" className="py-16 md:py-36">
       <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-        <header className="grid gap-6 md:grid-cols-12 md:items-end">
+        <header className="grid grid-cols-1 gap-6 md:grid-cols-12 md:items-end">
           <h2 id="fyp-title" className="display text-[clamp(3rem,9vw,8rem)] md:col-span-8">
             Find your <span className="accent-word">pair</span>
           </h2>
@@ -51,7 +51,7 @@ export function FindYourPair({ products }: { products: Product[] }) {
           </p>
         </header>
 
-        <div className="mt-14 grid gap-10 md:mt-20 md:grid-cols-12 md:gap-6">
+        <div className="mt-8 grid grid-cols-1 gap-8 md:mt-20 md:grid-cols-12 md:gap-6">
           {/* The stylist's question */}
           <div className="md:col-span-4">
             <div className="md:sticky md:top-28">
@@ -59,19 +59,21 @@ export function FindYourPair({ products }: { products: Product[] }) {
               <ul
                 role="group"
                 aria-label="Choose a style"
-                className="no-scrollbar -mx-5 mt-5 flex gap-6 overflow-x-auto px-5 md:mx-0 md:mt-8 md:block md:space-y-1 md:px-0"
+                className="mt-4 grid grid-cols-2 gap-2 md:mt-8 md:block md:space-y-1"
               >
                 {styles.map((s) => {
                   const active = s.id === style;
                   return (
-                    <li key={s.id} className="shrink-0">
+                    <li key={s.id}>
                       <button
                         type="button"
                         aria-pressed={active}
                         onClick={() => choose(s.id)}
                         className={cn(
-                          "display min-h-11 text-left text-[clamp(2rem,4.6vw,4.25rem)] transition-colors duration-500",
-                          active ? "text-ink" : "text-ink/25 hover:text-ink/60",
+                          "display flex min-h-14 w-full items-center border px-4 text-left text-[1.375rem] transition-colors duration-500 md:min-h-11 md:w-auto md:border-0 md:px-0 md:text-[clamp(2rem,4.6vw,4.25rem)]",
+                          active
+                            ? "border-ink bg-ink text-canvas md:bg-transparent md:text-ink"
+                            : "border-ink/15 text-ink/70 hover:border-ink/40 md:text-ink/25 md:hover:text-ink/60",
                         )}
                       >
                         {s.label}
@@ -83,7 +85,7 @@ export function FindYourPair({ products }: { products: Product[] }) {
               <AnimatePresence mode="wait" initial={false}>
                 <motion.p
                   key={style ?? "none"}
-                  className="accent-word mt-6 max-w-xs text-2xl leading-snug text-ink/80"
+                  className="accent-word mt-5 max-w-xs text-xl leading-snug text-ink/80 md:mt-6 md:text-2xl"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}

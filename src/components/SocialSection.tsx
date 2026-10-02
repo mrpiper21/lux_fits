@@ -19,8 +19,8 @@ const cells = [
 
 export function SocialSection() {
   return (
-    <section aria-labelledby="social-title" className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 md:py-36">
-      <div className="mb-12 flex flex-wrap items-end justify-between gap-6 md:mb-16">
+    <section aria-labelledby="social-title" className="mx-auto max-w-[1600px] px-5 py-16 md:px-10 md:py-36">
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-6 md:mb-16">
         <h2 id="social-title" className="display text-[clamp(3rem,8vw,7rem)]">
           Follow the <span className="accent-word">look</span>
         </h2>

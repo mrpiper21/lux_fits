@@ -5,9 +5,9 @@ export function Footer() {
   const tel = phoneLink();
 
   return (
-    <footer id="contact" className="bg-canvas pb-10 pt-20 md:pt-28">
+    <footer id="contact" className="bg-canvas pb-10 pt-14 md:pt-28">
       <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-        <div className="grid gap-12 md:grid-cols-12 md:gap-6">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-6">
           <div className="md:col-span-5">
             <h2 className="display text-[clamp(2.25rem,4vw,3.5rem)]">
               Say <span className="accent-word">hello</span>

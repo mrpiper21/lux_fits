@@ -5,8 +5,8 @@ import { Reveal } from "@/components/ui/Reveal";
 /** A magazine spread between the shopping moments. */
 export function EditorialSection() {
   return (
-    <section aria-labelledby="editorial-title" className="bg-beige py-24 md:py-36">
-      <div className="mx-auto grid max-w-[1600px] gap-10 px-5 md:grid-cols-12 md:gap-6 md:px-10">
+    <section aria-labelledby="editorial-title" className="bg-beige py-16 md:py-36">
+      <div className="mx-auto grid grid-cols-1 max-w-[1600px] gap-10 px-5 md:grid-cols-12 md:gap-6 md:px-10">
         <Reveal className="relative aspect-[4/5] md:col-span-7 md:aspect-[5/6]">
           <Media
             src={photos.editorialLarge.src}

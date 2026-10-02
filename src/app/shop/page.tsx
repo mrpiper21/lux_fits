@@ -15,7 +15,7 @@ export default async function ShopPage() {
   const products = await getProducts();
 
   return (
-    <div className="mx-auto max-w-[1600px] px-5 pb-24 pt-28 md:px-10 md:pb-36 md:pt-36">
+    <div className="mx-auto max-w-[1600px] px-5 pb-16 pt-28 md:px-10 md:pb-36 md:pt-36">
       {/* The static fallback renders the whole collection for crawlers and first paint. */}
       <Suspense
         fallback={

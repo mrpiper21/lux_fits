@@ -81,7 +81,7 @@ export default async function ProductPage({ params }: PageProps<"/shop/[id]">) {
 
       <ProductDetail product={product} />
 
-      <section aria-labelledby="related-title" className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 md:py-36">
+      <section aria-labelledby="related-title" className="mx-auto max-w-[1600px] px-5 py-16 md:px-10 md:py-36">
         <h2 id="related-title" className="display mb-10 text-[clamp(2.25rem,5vw,4.5rem)] md:mb-14">
           You may <span className="accent-word">also</span> like
         </h2>

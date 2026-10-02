@@ -17,7 +17,7 @@ export default async function LacostePage() {
   return (
     <div className="pt-16">
       <LacosteEdit products={products} showLink={false} />
-      <section aria-labelledby="lacoste-all" className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 md:py-36">
+      <section aria-labelledby="lacoste-all" className="mx-auto max-w-[1600px] px-5 py-16 md:px-10 md:py-36">
         <h2 id="lacoste-all" className="display mb-12 text-[clamp(2.25rem,5vw,4.5rem)] md:mb-16">
           Every <span className="accent-word">piece</span>
         </h2>
