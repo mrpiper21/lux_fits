@@ -1,26 +1,182 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Design tokens.
+ * Neutral foundation + three collection accents. No gradients. Sharp edges.
+ */
+@theme {
+  --color-canvas: #ffffff;
+  --color-ink: #20201e;
+  --color-beige: #e8e1d5;
+  --color-white: #ffffff;
+
+  /* Collection accents */
+  --color-men: #102a43;
+  --color-women: #d98ca3;
+  --color-unisex: #3b82b6;
+
+  /*
+   * ChatGeli is the primary typeface. To ship it, drop the font files in
+   * /public/fonts and load them in src/lib/fonts.ts. Until then the fallback is used.
+   */
+  --font-sans: "ChatGeli", var(--font-fallback), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-xs: 0;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
+  --radius-4xl: 0;
+
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* The active accent. Neutral by default; a collection sets it via data-gender. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #20201e;
+}
+@property --accent-text {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #20201e;
+}
+
+:root {
+  --accent: var(--color-ink);
+  --accent-text: var(--color-ink);
+}
+
+/*
+ * --accent is the true collection colour (swatches, rules, borders).
+ * --accent-text is the same hue deepened with charcoal so small type stays
+ * readable on the off-white canvas (WCAG AA).
+ */
+[data-gender="men"] {
+  --accent: var(--color-men);
+  --accent-text: var(--color-men);
+}
+[data-gender="women"] {
+  --accent: var(--color-women);
+  --accent-text: color-mix(in srgb, var(--color-women) 58%, var(--color-ink));
+}
+[data-gender="unisex"] {
+  --accent: var(--color-unisex);
+  --accent-text: color-mix(in srgb, var(--color-unisex) 72%, var(--color-ink));
+}
+
+.accent-transition {
+  transition:
+    --accent 0.7s var(--ease-editorial),
+    --accent-text 0.7s var(--ease-editorial);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-canvas);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+
+  .on-dark :focus-visible,
+  .on-dark:focus-visible {
+    outline-color: var(--color-canvas);
+  }
+
+  [id] {
+    scroll-margin-top: 5rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Editorial display type. */
+  .display {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+
+  /* The accent word inside a headline: "Step into YOUR style" — same family, light weight. */
+  .accent-word {
+    font-weight: 300;
+  }
+
+  /* Small uppercase label. Use sparingly. */
+  .label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  /* Underline that draws in on hover / focus. Colour follows the accent. */
+  .link-line {
+    position: relative;
+  }
+  .link-line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.2em;
+    height: 1px;
+    background: var(--underline, currentColor);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s var(--ease-editorial);
+  }
+  .link-line:hover::after,
+  .link-line:focus-visible::after,
+  .group:hover .link-line::after,
+  .group:focus-visible .link-line::after,
+  .link-line[aria-current="page"]::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
