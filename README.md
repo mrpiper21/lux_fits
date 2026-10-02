@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fashion Boutique
 
-## Getting Started
-
-First, run the development server:
+Next.js 16 · TypeScript · Tailwind CSS v4 · Motion.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # every page is statically prerendered
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Replacing placeholders
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Placeholders are written as `[LIKE THIS]`. Real information is only needed in these files:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| What | Where |
+| --- | --- |
+| Business name, description, location, WhatsApp, phone, Instagram, brand story | `src/lib/site.ts` |
+| Products (name, gender, category, price, image, sizes, availability, style tags). Currently a **dummy catalogue** | `src/data/products.ts` |
+| Hero, collection campaigns, editorial, Lacoste, about and gallery photography (currently Unsplash stand-ins); collection and style copy | `src/data/media.ts` |
+| Primary font (ChatGeli) | `src/lib/fonts.ts` + `src/app/globals.css` |
+| Production URL (for SEO, sitemap, WhatsApp links) | `NEXT_PUBLIC_SITE_URL` env var |
 
-## Learn More
+**Images:** put files in `public/images/` and replace the `"[PLACEHOLDER]"` string with the path (e.g. `image: "/images/shoe-001.jpg"`). Any value still in brackets shows a quiet placeholder. For remote images (a CMS or CDN), add the host to `images.remotePatterns` in `next.config.ts`.
 
-To learn more about Next.js, take a look at the following resources:
+**WhatsApp:** use the international format without `+` (e.g. `233XXXXXXXXX`). Order buttons pre-fill the product, the chosen size, the price and the page link.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Gender:** every product needs `gender: "men" | "women" | "unisex"`. It sets the label colour on cards and the accent on the product page.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Find Your Pair:** footwear only. A product's `tags` decide which style it appears under: `everyday`, `casual`, `smart`, `statement`.
 
-## Deploy on Vercel
+**Dummy catalogue:** 26 products (19 footwear, 7 Lacoste) with illustrative names, GHS prices, sizes and availability. Each product's photos come from a single [Unsplash](https://unsplash.com/license) shoot of the same item, so its gallery shows genuine extra angles (2–5 photos each). The brand photography in `src/data/media.ts` is Ghanaian youth fashion by Accra-based photographers on Unsplash. All images are served from `images.unsplash.com` (allowed in `next.config.ts`). Replace it all with real stock and the business's own photos before launch.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Product photos:** `image` is the main photo and `gallery` holds the rest, in order. The product page shows them as a swipeable viewer with thumbnails and a full-screen preview (arrows, swipe, keyboard, Esc), and cards show "N photos".
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Structured data:** a schema.org `Offer` is emitted only once `price` contains a real number.
+
+## Structure
+
+```
+src/
+  app/                 routes: /, /shop, /shop/[id], /lacoste, sitemap, robots, 404
+  components/          Navbar, Hero, Collections, FindYourPair, EditorialSection,
+                       LacosteEdit, About, SocialSection, CTA, Footer, ProductCard,
+                       GenderLabel, ProductGrid, ProductDetail, ProductGallery,
+                       CategorySelector, ShopView
+  components/ui/       Media, Button, Reveal
+  data/                local content (swap for the API later)
+  lib/products.ts      data access layer, the only module that reads product data
+  lib/site.ts          business config + WhatsApp/Instagram link helpers
+  types/product.ts     shared types
+```
+
+## Adding the API later
+
+Planned flow: Next.js → TanStack Query → API → backend → database.
+
+1. Replace the bodies of `getProducts`, `getProduct` and `getRelatedProducts` in `src/lib/products.ts` with `fetch` calls. Server pages keep working unchanged.
+2. For client-side data (live stock, for example), install `@tanstack/react-query`, add a `QueryClientProvider` in `src/components/Providers.tsx`, and wrap the same functions in `useQuery` hooks.
+3. Components depend only on the `Product` type, so they don't need to change.
+
+## Design rules
+
+- Neutral base: white canvas `#FFFFFF`, charcoal `#20201E`, beige `#E8E1D5`. No gradients.
+- Collection accents: men `#102A43`, women `#D98CA3`, unisex `#3B82B6`. Any element inside `data-gender="…"` picks up `--accent` (true colour, for swatches, rules and borders) and `--accent-text` (the same hue deepened so small text passes WCAG AA, because raw pink and blue are too light for small type on white). The shop animates between them when the collection changes.
+- Typography: sans-serif only. ChatGeli (Inter Tight until it's supplied) in uppercase for display; one word per headline drops to a light weight as the accent (`.accent-word`).
+- Every Tailwind radius token is set to `0`, so all corners stay sharp.
+- Motion respects `prefers-reduced-motion`. The layout doesn't depend on animation.
+# lux_fits
